@@ -1,5 +1,5 @@
-from scipy.spatial import KDTree
 import yaml
+import math as m
 
 class similarity_metrics:
     """
@@ -10,16 +10,34 @@ class similarity_metrics:
     
     """    
 
-    def add_in_tree():
+    def import_data_set()-> dict:
         """
-        add data set, 
-        newsgroup_data.yaml is used to parse the data into the map of map
+        Opens the .yaml file into a nested map.
         
         """
+        dictionary_data = dict()
         # scan the file
         with open('newsgroup_data.yaml') as nd:
             dictionary_data = yaml.safe_load(nd)    
-        print(dictionary_data['alt.atheism'].keys())
+        # print(dictionary_data['alt.atheism'].keys())
+        # print(len(dictionary_data.get(alt.atheism).keys()))
+        return dictionary_data
+    def jacard_similarity(x, y):
+        """
+        pre: x and y must be same data set with the same length
+        Implements the Jacard similarity
+        sum of min(x_i, y_i) / sum of max(x_i, y_i)
+        """
+        #TODO: if map length = 0, the return 0
+        min  = 0
+        max = 0
+        # TODO: Find Jacard similarity across each article of the same type
+
+        for (k, v), (k2, v2) in zip (x.items(), y.items()):
+            min += m.min(v, v2)
+            max += m.max(v, v2)
+
+#    def print_heat_map():
 
     if __name__ == '__main__':
-        add_in_tree()
+        import_data_set()
